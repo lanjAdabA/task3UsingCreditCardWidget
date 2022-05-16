@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +34,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List cardList = [Item1(), Item2(), Item3()];
+  int activeIndex = 0;
+
+  List cardList = [Item1(), Item2(), Item3(), Item4()];
+  // List cardList = [Item5(), Item6(), Item7(), Item8()];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -109,42 +113,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 14,
               ),
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                  height: 250.0,
-                  autoPlay: true,
-                  enlargeCenterPage: false,
-                  autoPlayInterval: const Duration(seconds: 2)),
-              items: cardList.map((card) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: card
-
-                        /* Column(
-                          children: [
-                            CreditCardWidget(
-                              cardNumber: cardNumber,
-                              expiryDate: expiryDate,
-                              cardHolderName: cardHolderName,
-                              cardBgColor: Colors.teal,
-
-                              cvvCode: cvvCode,
-                              // ignore: non_constant_identifier_names
-                              showBackView: isCvvFocused,
-                              onCreditCardWidgetChange:
-                                  // ignore: non_constant_identifier_names
-                                  (CreditCardBrand) {}, //true when you want to show cvv(back) view
-                            ),
-                          ],
-                        )
-                        */
-                        );
-                  },
-                );
-              }).toList(),
+            Column(
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 250.0,
+                    autoPlay: true,
+                    enlargeCenterPage: false,
+                    autoPlayInterval: const Duration(seconds: 2),
+                    onPageChanged: (index, reason) =>
+                        setState(() => activeIndex = index),
+                  ),
+                  items: cardList.map((card) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: card);
+                      },
+                    );
+                  }).toList(),
+                ),
+                buildIndicator(),
+              ],
             ),
             Table(
               border: TableBorder.all(),
@@ -203,15 +195,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ));
   }
+
+  buildIndicator() => AnimatedSmoothIndicator(
+        activeIndex: activeIndex,
+        count: cardList.length,
+        effect: const JumpingDotEffect(
+            dotHeight: 8,
+            dotWidth: 8,
+            dotColor: Colors.grey,
+            activeDotColor: Colors.black),
+      );
 }
 
+// ignore: use_key_in_widget_constructors
 class Item1 extends StatelessWidget {
   get onCreditCardWidgetChange => null;
 
   @override
   Widget build(BuildContext context) {
     return CreditCardWidget(
-      cardNumber: "322349583858",
+      cardNumber: "541249587864",
       expiryDate: "22 08",
       cardHolderName: "TOMCY KHUMAN",
       cvvCode: "443",
@@ -222,6 +225,7 @@ class Item1 extends StatelessWidget {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class Item2 extends StatelessWidget {
   get onCreditCardWidgetChange => null;
 
@@ -239,19 +243,340 @@ class Item2 extends StatelessWidget {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class Item3 extends StatelessWidget {
   get onCreditCardWidgetChange => null;
 
   @override
   Widget build(BuildContext context) {
     return CreditCardWidget(
-      cardNumber: "153349580860",
+      cardNumber: "375949580860",
       expiryDate: "20 03",
       cardHolderName: "MACY CHANU",
       cvvCode: "323",
       showBackView: false,
+      cardType: CardType.americanExpress,
+      cardBgColor: Colors.blue,
+      onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+    );
+  }
+}
+
+// ignore: use_key_in_widget_constructors
+class Item4 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return CreditCardWidget(
+      cardNumber: "4332949580860",
+      expiryDate: "20 03",
+      cardHolderName: "RENCHI KHUMAN",
+      cvvCode: "311",
+      showBackView: false,
+      cardType: CardType.discover,
       cardBgColor: Colors.teal,
       onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+    );
+  }
+}
+
+// ignore: use_key_in_widget_constructors
+class Item5 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      color: Colors.indigo[400],
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Current Balance ",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  "\$ 25,427.26",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.stop_circle_outlined,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "HDFC Bank",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Text(
+                          "**** **** ****  6454",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      " Expiry Date",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    Text(
+                      "12/24",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: use_key_in_widget_constructors
+class Item6 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      color: Colors.purple[400],
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Current Balance ",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  "\$ 242.32",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.stop_circle_outlined,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Canara Bank",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Text(
+                          "**** **** ****  2014",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      " Expiry Date",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    Text(
+                      "14/31",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: use_key_in_widget_constructors
+class Item7 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      color: Colors.teal[400],
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Current Balance ",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  "\$ 4,337.23",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.stop_circle_outlined,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "UCO Bank",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Text(
+                          "**** **** ****  3234",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      " Expiry Date",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    Text(
+                      "15/26",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: use_key_in_widget_constructors
+class Item8 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      color: Colors.orange[400],
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Current Balance ",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  "\$ 23,337.23",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.stop_circle_outlined,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "PNB National Bank",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        Text(
+                          "**** **** ****  0094",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      " Expiry Date",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    Text(
+                      "12/22",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
