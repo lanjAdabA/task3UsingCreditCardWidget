@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 void main() {
@@ -32,6 +33,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List cardList = [Item1(), Item2(), Item3()];
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 1; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
+
   String cardNumber = '3878952902754';
   String expiryDate = '23 june';
   String cardHolderName = 'Jessi khuman';
@@ -104,13 +115,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   autoPlay: true,
                   enlargeCenterPage: false,
                   autoPlayInterval: const Duration(seconds: 2)),
-              items: [1, 2, 3, 4, 5].map((i) {
+              items: cardList.map((card) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Column(
+                        child: card
+
+                        /* Column(
                           children: [
                             CreditCardWidget(
                               cardNumber: cardNumber,
@@ -126,7 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   (CreditCardBrand) {}, //true when you want to show cvv(back) view
                             ),
                           ],
-                        ));
+                        )
+                        */
+                        );
                   },
                 );
               }).toList(),
@@ -187,5 +202,56 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ));
+  }
+}
+
+class Item1 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return CreditCardWidget(
+      cardNumber: "322349583858",
+      expiryDate: "22 08",
+      cardHolderName: "TOMCY KHUMAN",
+      cvvCode: "443",
+      showBackView: false,
+      cardBgColor: Colors.purple,
+      onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+    );
+  }
+}
+
+class Item2 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return CreditCardWidget(
+      cardNumber: "435749587864",
+      expiryDate: "23 01",
+      cardHolderName: "JESSI KHUMAN",
+      cvvCode: "323",
+      showBackView: false,
+      cardBgColor: Colors.indigo,
+      onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+    );
+  }
+}
+
+class Item3 extends StatelessWidget {
+  get onCreditCardWidgetChange => null;
+
+  @override
+  Widget build(BuildContext context) {
+    return CreditCardWidget(
+      cardNumber: "153349580860",
+      expiryDate: "20 03",
+      cardHolderName: "MACY CHANU",
+      cvvCode: "323",
+      showBackView: false,
+      cardBgColor: Colors.teal,
+      onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+    );
   }
 }
