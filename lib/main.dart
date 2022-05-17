@@ -145,51 +145,49 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               elevation: 2,
               child: Container(
-                padding: EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 30),
                 child: Column(
                   children: [
                     (Container(
-                      padding: EdgeInsets.all(20),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text("Outstanding Amount",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    )),
-                                Text(
-                                  "\$ 32,329.50",
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text("Outstanding Amount",
                                   style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text("Minimun Due",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    )),
-                                Text(
-                                  "\$ 3516.01",
+                                    fontSize: 14,
+                                  )),
+                              Text(
+                                "\$ 32,329.50",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text("Minimun Due",
                                   style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                                    fontSize: 14,
+                                  )),
+                              Text(
+                                "\$ 3516.01",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     )),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,11 +214,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                           OutlineButton(
-                            disabledBorderColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    color: Colors.red,
+                                    style: BorderStyle.solid),
+                                borderRadius: BorderRadius.circular(50)),
                             highlightedBorderColor: Colors.indigo,
-                            borderSide: const BorderSide(color: Colors.red),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                            ),
                             onPressed: () {},
-                            child: const Text("2 days left"),
+                            child: const Text(
+                              "2 days left",
+                              style: TextStyle(fontSize: 12),
+                            ),
                           )
                         ],
                       ),
@@ -228,8 +235,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ElevatedButton(
                       onPressed: (() {}),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.purple,
-                        padding: EdgeInsets.only(right: 100, left: 100),
+                        primary: Colors.purple[900],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.only(
+                            right: 140, left: 140, top: 20, bottom: 20),
                       ),
                       child: const Text("Pay Now"),
                     ),
@@ -237,6 +247,101 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Card(
+                    elevation: 0.5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: const [
+                        Icon(
+                          Icons.horizontal_rule_rounded,
+                          color: Colors.grey,
+                          size: 64,
+                        ),
+                        Text(
+                          "Transaction History",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text("Life style retail store"),
+                              Text("\$ 2999.00",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          const Text(
+                            "6 May, 4:21 pm",
+                            style: TextStyle(fontSize: 14),
+                          ),
+
+                          ElevatedButton(
+                            onPressed: (() {}),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.pink[200],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            child: const Text("Paid"),
+                          ),
+                          // here
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text("Life style retail store"),
+                              Text("\$ 2999.00",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          const Text(
+                            "6 May, 4:21 pm",
+                            style: TextStyle(fontSize: 14),
+                          ),
+
+                          ElevatedButton(
+                            onPressed: (() {}),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.pink[200],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            child: const Text("Paid"),
+                          ),
+                          // here
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )
           ],
         ));
   }
@@ -559,7 +664,7 @@ class Item8 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      color: Colors.orange[400],
+      color: Colors.purple[900],
       child: Container(
         padding: const EdgeInsets.all(18),
         child: Column(
