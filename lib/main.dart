@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use
+
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -36,8 +40,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int activeIndex = 0;
 
-  List cardList = [Item1(), Item2(), Item3(), Item4()];
-  // List cardList = [Item5(), Item6(), Item7(), Item8()];
+  //List cardList = [Item1(), Item2(), Item3(), Item4()];
+  List cardList = [Item5(), Item6(), Item7(), Item8()];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -138,59 +142,100 @@ class _MyHomePageState extends State<MyHomePage> {
                 buildIndicator(),
               ],
             ),
-            Table(
-              border: TableBorder.all(),
-              columnWidths: const <int, TableColumnWidth>{
-                0: IntrinsicColumnWidth(),
-                1: FlexColumnWidth(),
-                2: FixedColumnWidth(64),
-              },
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: <TableRow>[
-                TableRow(
-                  children: <Widget>[
-                    Container(
-                      height: 32,
-                      color: Colors.green,
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.top,
+            Card(
+              elevation: 2,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 40),
+                child: Column(
+                  children: [
+                    (Container(
+                      padding: EdgeInsets.all(20),
                       child: Container(
-                        height: 32,
-                        width: 32,
-                        color: Colors.red,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text("Outstanding Amount",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    )),
+                                Text(
+                                  "\$ 32,329.50",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text("Minimun Due",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    )),
+                                Text(
+                                  "\$ 3516.01",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [Text("Due Date"), Text("Pay by")],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                "03 May'22",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red),
+                              ),
+                              Text(
+                                "24 May'22",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          OutlineButton(
+                            disabledBorderColor: Colors.red,
+                            highlightedBorderColor: Colors.indigo,
+                            borderSide: const BorderSide(color: Colors.red),
+                            onPressed: () {},
+                            child: const Text("2 days left"),
+                          )
+                        ],
                       ),
                     ),
-                    Container(
-                      height: 64,
-                      color: Colors.blue,
+                    ElevatedButton(
+                      onPressed: (() {}),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
+                        padding: EdgeInsets.only(right: 100, left: 100),
+                      ),
+                      child: const Text("Pay Now"),
                     ),
                   ],
                 ),
-                TableRow(
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                  ),
-                  children: <Widget>[
-                    Container(
-                      height: 64,
-                      width: 128,
-                      color: Colors.purple,
-                    ),
-                    Container(
-                      height: 32,
-                      color: Colors.yellow,
-                    ),
-                    Center(
-                      child: Container(
-                        height: 32,
-                        width: 32,
-                        color: Colors.orange,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ],
         ));
